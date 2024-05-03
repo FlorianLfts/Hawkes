@@ -1,0 +1,20 @@
+Algorithme de thinning
+Hypotheses : lambda t est borné par M que l’on fixe comme M=lambda_max
+
+on va simuler en plus une variable aléatoire uniforme sur 0,1
+Pour l’algorithme de thinning initial, on simule lambda, (lambda =cste pour processus de poisson homogene mais ici lambda inhomogene varie a travers le temps)
+On simule sur chaque intertemps jusqu’a tau1, tau2, taup, une exponentielle et on regarde si le marqueur du point simulé est situé en dessous ou au dessus de la courbe de lambda(t)
+
+Si le point est au dessus, il est supprimé et non pris en compte dans l’étude, s’il est en dessous il est comptabilisé comme un temps tau, et on réinitialise les indices des temps tau à partir uniquement des  tau conservés
+
+
+Dans le cadre du processus de Hawkes, on applique l’algoirhtme d’Ogata :
+Cette fois ci on commmence par simuler dans un premier temps un lambda constant comme pour un processsus homogene puis on réalise une nouvelle fois les simulations d’exponentielles sur les intertemps.
+
+Sauf que pour Ogata, on veut que lambda(t) varie a la fois en fonction du temps mais qu’il dépende également des tau et de la proximité avec le tau précédent. Lambda(t) et M sont donc recalculés sur chaque intertemps et changent d’expression a chaque fois. On fixe comme M=lambda_max avec lambda_max de chaque sous intervalle, ce qui fait que M varie à chaque fois. On veut qu’il y ait plus de chances d’une réplique et d’un nouveau tau lorsque l’on vient d’avoir un tau (un événément). Pour cela, entre chaque tau ie sur chaque intertemps, on va expliciter lambda(t) comme un parametre qui décroit exponentiellement (lambda(t)=mu + somme de i=1 à Ht des phi(t-tau_i)). 
+Ainsi, la loi lambda_t change sur chaque intervalle de temps entre deux tau et comme sa valeur décroit avec le temps, la probabilité d’un nouvel évenement (ie d’un nouveau point pris en compte) est plus grande lorsque l’on est proche de l’événément précédent. 
+
+
+
+
+=> Essayer de faire apparaître sur le graphe avec l’intensité le fonctionnement de l’algorithme de thinning, ie montrer les points simuler par l’exponentielle et mettre une couleur en fonction de si le point est retenu pour déterminer un nouveau tau ou non.
